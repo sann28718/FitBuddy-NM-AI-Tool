@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+        <p class="eyebrow">
+            AI-POWERED WELLNESS
+        </p>
+
+
+        <h1>
+
+            Your personalized
+
+            <br>
+
+            <span>
+                7-day fitness plan.
+            </span>
+
+        </h1>
+
+
+        <p class="lead">
+
+            Tell FitBuddy about your fitness goal
+            and preferred workout intensity.
+
+            Gemini will create a structured
+            personalized fitness plan.
+
+        </p>
+
+    </div>
+
+
+    <form
+        class="card form-card"
+        action="/generate-workout"
+        method="post"
+    >
+
+        <h2>
+            Create Your Plan
+        </h2>
+
+
+        {% if error %}
+
+        <div class="alert">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <label>
+
+            Name
+
+            <input
+                type="text"
+                name="username"
+                required
+                maxlength="120"
+                value="{{ form.username if form else '' }}"
+                placeholder="Enter your name"
+            >
+
+        </label>
+
+
+        <label>
+
+            User ID
+
+            <input
+                type="text"
+                name="user_id"
+                required
+                maxlength="80"
+                value="{{ form.user_id if form else '' }}"
+                placeholder="Example: FB001"
+            >
+
+        </label>
+
+
+        <div class="grid-2">
+
+
+            <label>
+
+                Age
+
+                <input
+                    type="number"
+                    name="age"
+                    min="13"
+                    max="100"
+                    required
+                    value="{{ form.age if form else '' }}"
+                >
+
+            </label>
+
+
+            <label>
+
+                Weight (kg)
+
+                <input
+                    type="number"
+                    name="weight"
+                    min="1"
+                    max="500"
+                    step="0.1"
+                    required
+                    value="{{ form.weight if form else '' }}"
+                >
+
+            </label>
+
+
+        </div>
+
+
+        <label>
+
+            Fitness Goal
+
+            <select
+                name="goal"
+                required
+            >
+
+                <option value="">
+                    Select your goal
+                </option>
+
+
+                <option
+                    value="weight loss"
+                    {% if form and form.goal == "weight loss" %}
+                    selected
+                    {% endif %}
+                >
+                    Weight Loss
+                </option>
+
+
+                <option
+                    value="muscle gain"
+                    {% if form and form.goal == "muscle gain" %}
+                    selected
+                    {% endif %}
+                >
+                    Muscle Gain
+                </option>
+
+
+                <option
+                    value="general wellness"
+                    {% if form and form.goal == "general wellness" %}
+                    selected
+                    {% endif %}
+                >
+                    General Wellness
+                </option>
+
+
+                <option
+                    value="flexibility"
+                    {% if form and form.goal == "flexibility" %}
+                    selected
+                    {% endif %}
+                >
+                    Flexibility
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <label>
+
+            Workout Intensity
+
+            <select
+                name="intensity"
+                required
+            >
+
+                <option value="">
+                    Select intensity
+                </option>
+
+
+                <option
+                    value="low"
+                    {% if form and form.intensity == "low" %}
+                    selected
+                    {% endif %}
+                >
+                    Low
+                </option>
+
+
+                <option
+                    value="medium"
+                    {% if form and form.intensity == "medium" %}
+                    selected
+                    {% endif %}
+                >
+                    Medium
+                </option>
+
+
+                <option
+                    value="high"
+                    {% if form and form.intensity == "high" %}
+                    selected
+                    {% endif %}
+                >
+                    High
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <button type="submit">
+
+            Generate My Plan →
+
+        </button>
+
+
+    </form>
+
+
+</section>
+
+
+
+<section class="feature-grid">
+
+
+    <article class="feature">
+
+        <strong>
+            01
+        </strong>
+
+        <h3>
+            Personalized
+        </h3>
+
+        <p>
+            Uses your goal, age, weight
+            and intensity preference.
+        </p>
+
+    </article>
+
+
+    <article class="feature">
+
+        <strong>
+            02
+        </strong>
+
+        <h3>
+            7-Day Structure
+        </h3>
+
+        <p>
+            Warm-ups, workouts,
+            recovery and practical guidance.
+        </p>
+
+    </article>
+
+
+    <article class="feature">
+
+        <strong>
+            03
+        </strong>
+
+        <h3>
+            Adaptive
+        </h3>
+
+        <p>
+            Submit feedback and
+            regenerate your plan.
+        </p>
+
+    </article>
+
+
+</section>
+
+
+{% endblock %}

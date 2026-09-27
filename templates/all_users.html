@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<section class="page-heading">
+
+    <p class="eyebrow">
+        ADMIN DASHBOARD
+    </p>
+
+
+    <h1>
+        All FitBuddy Users
+    </h1>
+
+
+    <p class="lead">
+
+        Review user profiles and
+        generated workout plans.
+
+    </p>
+
+</section>
+
+
+
+{% if not users %}
+
+<div class="card empty">
+
+    No users have been registered yet.
+
+</div>
+
+{% endif %}
+
+
+
+{% for user in users %}
+
+
+<article class="card admin-user">
+
+
+    <div class="admin-header">
+
+
+        <div>
+
+            <h2>
+
+                {{ user.username }}
+
+                <small>
+                    #{{ user.user_id }}
+                </small>
+
+            </h2>
+
+
+            <p>
+
+                {{ user.age }} years
+
+                ·
+
+                {{ user.weight }} kg
+
+                ·
+
+                {{ user.goal|title }}
+
+                ·
+
+                {{ user.intensity|title }}
+
+            </p>
+
+        </div>
+
+
+        <span class="badge">
+
+            {% if user.updated_plan %}
+
+                UPDATED
+
+            {% else %}
+
+                ORIGINAL
+
+            {% endif %}
+
+        </span>
+
+
+    </div>
+
+
+
+    <details open>
+
+        <summary>
+            Original Plan
+        </summary>
+
+
+        <pre>
+{{ user.original_plan }}
+        </pre>
+
+    </details>
+
+
+
+    {% if user.updated_plan %}
+
+
+    <details>
+
+        <summary>
+            Updated Plan
+        </summary>
+
+
+        <pre>
+{{ user.updated_plan }}
+        </pre>
+
+    </details>
+
+
+    <div class="feedback-box">
+
+        <strong>
+            User Feedback:
+        </strong>
+
+        {{ user.feedback }}
+
+    </div>
+
+
+    {% endif %}
+
+
+</article>
+
+
+{% endfor %}
+
+
+{% endblock %}

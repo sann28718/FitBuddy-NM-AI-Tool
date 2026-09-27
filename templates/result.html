@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<section class="page-heading">
+
+    <p class="eyebrow">
+        YOUR FITBUDDY PLAN
+    </p>
+
+
+    <h1>
+        {% if updated %}
+            Updated Workout Plan
+        {% else %}
+            Your Personalized Plan
+        {% endif %}
+    </h1>
+
+
+    {% if updated %}
+
+    <div class="success">
+
+        Your feedback has been
+        successfully applied.
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+
+<section class="profile-grid">
+
+
+    <div class="card">
+
+        <span>
+            Name
+        </span>
+
+        <strong>
+            {{ user.username }}
+        </strong>
+
+    </div>
+
+
+    <div class="card">
+
+        <span>
+            User ID
+        </span>
+
+        <strong>
+            {{ user.user_id }}
+        </strong>
+
+    </div>
+
+
+    <div class="card">
+
+        <span>
+            Age
+        </span>
+
+        <strong>
+            {{ user.age }}
+        </strong>
+
+    </div>
+
+
+    <div class="card">
+
+        <span>
+            Weight
+        </span>
+
+        <strong>
+            {{ user.weight }} kg
+        </strong>
+
+    </div>
+
+
+    <div class="card">
+
+        <span>
+            Goal
+        </span>
+
+        <strong>
+            {{ user.goal|title }}
+        </strong>
+
+    </div>
+
+
+    <div class="card">
+
+        <span>
+            Intensity
+        </span>
+
+        <strong>
+            {{ user.intensity|title }}
+        </strong>
+
+    </div>
+
+
+</section>
+
+
+
+<section class="results-layout">
+
+
+    <article class="card plan-card">
+
+
+        <div class="section-title">
+
+            <h2>
+                7-Day Workout Plan
+            </h2>
+
+            <span>
+                GEMINI AI
+            </span>
+
+        </div>
+
+
+        <pre>{{ plan }}</pre>
+
+
+    </article>
+
+
+
+    <aside>
+
+
+        <article class="card tip-card">
+
+            <h2>
+                Nutrition / Recovery Tip
+            </h2>
+
+            <p>
+                {{ user.nutrition_tip }}
+            </p>
+
+        </article>
+
+
+
+        <article class="card feedback-card">
+
+            <h2>
+                Improve This Plan
+            </h2>
+
+            <p class="muted">
+
+                Tell FitBuddy what you
+                want changed.
+
+            </p>
+
+
+            <form
+                action="/submit-feedback"
+                method="post"
+            >
+
+                <input
+                    type="hidden"
+                    name="user_id"
+                    value="{{ user.user_id }}"
+                >
+
+
+                <textarea
+                    name="feedback"
+                    required
+                    maxlength="2000"
+                    placeholder="Example: Add more cardio and make the strength days easier."
+                ></textarea>
+
+
+                <button type="submit">
+
+                    Update Plan →
+
+                </button>
+
+            </form>
+
+        </article>
+
+
+    </aside>
+
+
+</section>
+
+
+
+<div class="actions">
+
+
+    <a
+        href="/"
+        class="button secondary"
+    >
+        Create Another Plan
+    </a>
+
+
+    <a
+        href="/view-all-users"
+        class="button secondary"
+    >
+        View Users
+    </a>
+
+
+</div>
+
+
+{% endblock %}
